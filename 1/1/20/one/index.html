@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+</head>
+<link rel="stylesheet" type="text/css" href="../../../../public/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../lib/css/contact.css" />
+
+<body style="background-color:#D4D4D4;margin:0px;">
+	<div class="class">
+		<video id="video" class="video" width="1920" height="1080" muted="muted" autoplay preload
+			src="../../../../public/videos/logo.webm"></video>
+	</div>
+</body>
+<script src="../../../../public/lib/jquery-1.12.2.min.js"></script>
+<script src="../../../../public/lib/reconnecting-websocket.js"></script>
+<script src="../../../../public/lib/loading2.js"></script>
+<script src="../../../../public/lib/PageApp.js"></script>
+<script>
+	var PageApp = new PageApp();
+	var nextPage = "../p2/index.html";
+	var perPage = "#";
+	$(".box").hide();
+	myVid = document.getElementById("video");
+	setTimeout(function () {
+		myVid.muted = false;
+	}, 1000);
+	myVid.addEventListener("timeupdate", function () {
+		var timeDisplay = Math.floor(video.currentTime);
+		console.log(timeDisplay);
+		if (timeDisplay == 6) {
+			$(".class").addClass("classVid");
+		}
+	})
+	$("#video").on('click', function () {
+		window.location = nextPage;
+	});
+	$(document).keyup(function (event) {
+		var keyCode = event.keyCode;
+		console.log(keyCode)
+		if (keyCode == 39 || keyCode == 34) {
+			window.location = nextPage;
+		} else if (keyCode == 27) {
+			PageApp.ESCtext();
+		}
+		else if (keyCode == 33 || keyCode == 37) {
+			window.location = perPage;
+		}
+	});
+</script>
+
+</html>
