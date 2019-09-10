@@ -3,7 +3,6 @@
  */
 var _this;
 var isPlay;
-var a;
 var erGroup9;
 var those;
 var playnum = 0;
@@ -40,42 +39,38 @@ function addMouseEvent() {
 	});
 };
 
-var intX = 156;//初始x坐标
-var intY = 257;//初始y坐标
-var hangHeight = 304; //行间距
-var puziInitHeight = 485;//谱子初始坐标 每个谱子不一样 可调
-var jumpHeight = -40;//跳动的高度
-var offsetX = 60;//每行首尾x坐标偏差
-var defaultEffect = 1;//默认图标的透明度
-var lineEffect = 0;//消失时的透明度
+const intX = 156;//初始x坐标
+const intY = 257;//初始y坐标
+const jumpHeight = -40;//跳动的高度
+const offsetX = 60;//每行首尾x坐标偏差
+const defaultEffect = 1;//默认图标的透明度
+const lineEffect = 0;//消失时的透明度
 //节拍位置 x,y,time,仅限每小节首尾
-var y_position = [intY, 590, 590];
-var x_position = [
+const y_position = [intY, 590, 590];
+const x_position = [
 	[intX, 347, 572, 757, 988, 1172, 1404, 1591], //
 	[intX, 347, 572, 757, 988, 1172, 1404, 1591],
 	[intX, 347, 572, 757, 988, 1172]
 ];
-var arry = [];
-var beatLocations = arry;
-var endNUM = [8, 16, 22];
-var starNUM = [7, 15, 21];
-var NUM = 0;
+var beatLocations = [];
+const endNUM = [8, 16, 22];
+const starNUM = [7, 15, 21];
+let NUM = 0;
+var rightData = [];
+
 function positionMap() {
-	arry = [];
-	rightData = [];
 	$.each(x_position, function (index, record) {
 		$.each(record, function (i, d) {
-			arry.push([d, y_position[index]]);
+			beatLocations.push([d, y_position[index]]);
 		});
 	});
-	beatLocations = arry;
 	geneData();
 	beatStart();
-	//	console.log(arry);
+		// console.log(beatLocations);
 	// console.log(rightData)
 };
 
-var rightData = [];
+
 
 function geneData() {
 	rightData = [];
@@ -112,11 +107,9 @@ function geneData() {
 };
 
 function beatStart() {
-	var jumpNum = 0
 	tweenBall = createjs.Tween.get(erGroup9.ball, { override: true });
-	var n = 0
+	const n = 0
 	createjs.Sound.stop();
-	// those.instance = (those.step == 1 ? createjs.Sound.play("2-1-60") : createjs.Sound.play("2-1-70"));
 	those.instance = createjs.Sound.play(those.soundName)
 	those.instance.on("complete", function () {
 		beatEnd();
@@ -136,18 +129,14 @@ function beatStart() {
 		}
 		tweenBall.to({ x: parseInt(d[0]), y: parseInt(d[1]), scaleY: d[4], alpha: d[3] }, d[2]);
 		tweenBall.call(function () {
-			if (d[0] == 1651 && (playnum == 0)) {
+			if (d[0] == 1651 && playnum == 0) {
 				playnum++;
 				if (playnum == 1) { // -124
 					markNum = 1;//标记 告诉主页有动画了
-					tween = createjs.Tween.get(erGroup9.puzi.mc_1, { override: true }).to({ y: those.firstPosition - those.hangDis * 1 }, those.speed * 16 * 1);//谱子
+					tween = createjs.Tween.get(those.puzi, { override: true }).to({ y: those.firstPosition - those.hangDis * 1 }, those.speed * 16 * 1);//谱子
 				}
 			}
 		});
-		if (i == (rightData.length - 1)) {
-			// tweenBall.call(beatEnd);
-		};
-		// console.log(rightData);
 	});
 }
 
@@ -157,9 +146,8 @@ function beatEnd(event) {
 		return;
 	}
 	createjs.Sound.stop();
-	var tw = createjs.Tween.get(erGroup9.ball, { override: true });
-	createjs.Tween.get(erGroup9.puzi.mc_1, { override: true }).to({ y: puziInitHeight }).to({ alpha: 1 });//谱子
-	tw.to({ x: intX, y: intY, alpha: 1 });
+	createjs.Tween.get(erGroup9.ball, { override: true }).to({ x: intX, y: intY, alpha: 1 });
+	createjs.Tween.get(those.puzi, { override: true }).to({ y: those.firstPosition }).to({ alpha: 1 });//谱子
 	those.boolean = false;
 	those.num = 0;
 	those.isfirstPlay = true;

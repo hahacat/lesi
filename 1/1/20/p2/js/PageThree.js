@@ -126,7 +126,6 @@ class PageThree extends pageApp {
         };
     };
     extendNextStep  () {
-        var that = this.exportRoot.mc_0;
         if (this.step == 0) {
             this.Num1();
         }
@@ -135,7 +134,6 @@ class PageThree extends pageApp {
         }
     }
     extendPreStep () {
-        var that = this.exportRoot.mc_0;
         if (this.step == 1) {
             this.step--;
             this.stopPlay();
@@ -145,7 +143,6 @@ class PageThree extends pageApp {
         }
     }
     extendOkOrEnter () {
-        var that = this.exportRoot.mc_0;
         if (!that.puzi.alpha) return;
         if (this.step == 1) {
             this.played();
@@ -155,7 +152,6 @@ class PageThree extends pageApp {
         this.tApp.backHome();
     };
     choice (code) {
-        var that = this.exportRoot.mc_0;
         if (this.num !== 0) {
             return;
         }
